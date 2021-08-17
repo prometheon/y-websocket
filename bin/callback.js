@@ -22,7 +22,8 @@ exports.callbackHandler = (update, origin, doc) => {
     const sharedObjectType = CALLBACK_OBJECTS[sharedObjectName]
     dataToSend.data[sharedObjectName] = {
       type: sharedObjectType,
-      content: getContent(sharedObjectName, sharedObjectType, doc).toJSON()
+      quillDelta: getContent(sharedObjectName, sharedObjectType, doc).toDelta(),
+      text: getContent(sharedObjectName, sharedObjectType, doc).toJSON()
     }
   })
   callbackRequest(CALLBACK_URL, CALLBACK_TIMEOUT, dataToSend)
