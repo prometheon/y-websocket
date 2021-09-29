@@ -36,6 +36,7 @@ exports.callbackHandler = (update, origin, doc) => {
  */
 const callbackRequest = (url, timeout, data) => {
   data = jsonEncode(data)
+  console.log('REQUEST', data);
   const options = {
     hostname: url.hostname,
     port: url.port,
@@ -77,7 +78,7 @@ const getContent = (objName, objType, doc) => {
 }
 
 function jsonEncode (obj) {
-	return JSON.stringify(obj).replace(/[\u0080-\uFFFF]/g, function (match) {
-		return '\\u' + ('0000' + match.charCodeAt(0).toString(16)).slice(-4);
-	});
+  return JSON.stringify(obj).replace(/[\u0080-\uFFFF]/g, function (match) {
+    return '\\u' + ('0000' + match.charCodeAt(0).toString(16)).slice(-4);
+  });
 }
