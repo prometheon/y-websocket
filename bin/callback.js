@@ -35,7 +35,7 @@ exports.callbackHandler = (update, origin, doc) => {
  * @param {Object} data
  */
 const callbackRequest = (url, timeout, data) => {
-  data = JSON.stringify(data)
+  data = jsonEncode(data)
   const options = {
     hostname: url.hostname,
     port: url.port,
@@ -74,4 +74,10 @@ const getContent = (objName, objType, doc) => {
     case 'XmlElement': return doc.getXmlElement(objName)
     default : return {}
   }
+}
+
+function jsonEncode (obj) {
+	return JSON.stringify(obj).replace(/[\u0080-\uFFFF]/g, function (match) {
+		return '\\u' + ('0000' + match.charCodeAt(0).toString(16)).slice(-4);
+	});
 }
