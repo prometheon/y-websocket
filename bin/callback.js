@@ -36,7 +36,7 @@ exports.callbackHandler = (update, origin, doc) => {
  */
 const callbackRequest = (url, timeout, data) => {
   data = jsonEncode(data)
-  console.log('REQUEST', data);
+  console.log('REQUEST: ', data);
   const options = {
     hostname: url.hostname,
     port: url.port,
