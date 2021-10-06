@@ -22,8 +22,7 @@ exports.callbackHandler = (update, origin, doc) => {
     const sharedObjectType = CALLBACK_OBJECTS[sharedObjectName]
     dataToSend.data[sharedObjectName] = {
       type: sharedObjectType,
-      quillDelta: getContent(sharedObjectName, sharedObjectType, doc).toDelta(),
-      text: getContent(sharedObjectName, sharedObjectType, doc).toJSON()
+      content: getContent(sharedObjectName, sharedObjectType, doc).toJSON()
     }
   })
   callbackRequest(CALLBACK_URL, CALLBACK_TIMEOUT, dataToSend)
@@ -36,7 +35,6 @@ exports.callbackHandler = (update, origin, doc) => {
  */
 const callbackRequest = (url, timeout, data) => {
   data = jsonEncode(data)
-  console.log('REQUEST: ', data);
   const options = {
     hostname: url.hostname,
     port: url.port,
