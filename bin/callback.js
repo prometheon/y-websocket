@@ -1,4 +1,5 @@
 const http = require('http')
+const Y = require('yjs');
 
 const CALLBACK_URL = process.env.CALLBACK_URL ? new URL(process.env.CALLBACK_URL) : null
 const CALLBACK_TIMEOUT = process.env.CALLBACK_TIMEOUT || 5000
@@ -12,10 +13,13 @@ exports.isCallbackSet = !!CALLBACK_URL
  * @param {WSSharedDoc} doc
  */
 exports.callbackHandler = (update, origin, doc) => {
+  const stateBinary = Y.encodeStateAsUpdate(doc);
+  let stateArray = Array.from(stateBinary)
   const room = doc.name
   const dataToSend = {
     room: room,
-    data: {}
+    data: {},
+    state: stateArray
   }
   const sharedObjectList = Object.keys(CALLBACK_OBJECTS)
   sharedObjectList.forEach(sharedObjectName => {
