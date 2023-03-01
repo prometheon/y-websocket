@@ -43,7 +43,7 @@ const callbackRequest = (url, timeout, data) => {
     hostname: url.hostname,
     port: url.port,
     path: url.pathname,
-    timeout: timeout,
+    timeout,
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
